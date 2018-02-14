@@ -1,7 +1,7 @@
 #include <iostream>
 #include <vector>
 
-#include "Matrix.h"
+#include "functions.h"
 
 int main()
 {
@@ -15,12 +15,7 @@ int main()
     }
   }
 
-  for(size_t i = 0; i < A.rows(); ++i) {
-    for(size_t j = 0; j < A.cols(); ++j) {
-      std::cout << A(i, j) << " ";
-    }
-    std::cout << std::endl;
-  }
+  std::cout << toString(A);
 
   return 0;
 }

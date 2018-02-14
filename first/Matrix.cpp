@@ -17,3 +17,6 @@ size_t Matrix::cols(){
 double &Matrix::operator()(size_t row, size_t col){
 	return m_data[row * m_cols + col];
 }
+// const double &Matrix::operator()(size_t row, size_t col) const {
+// 	return m_data[row * m_cols + col];
+// }
