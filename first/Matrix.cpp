@@ -14,6 +14,6 @@ size_t Matrix::cols(){
 	return m_cols;
 }
 
-double Matrix::&operator()(size_t row, size_t col){
+double &Matrix::operator()(size_t row, size_t col){
 	return m_data[row * m_cols + col];
 }
