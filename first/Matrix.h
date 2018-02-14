@@ -1,8 +1,3 @@
-#include <iostream>
-#include <vector>
-#include <stdlib.h>
-
-
 #ifndef __MATRIX_H__
 #define __MATRIX_H__
 
