@@ -10,7 +10,8 @@ public:
 	Matrix(size_t rows, size_t cols);
 	size_t rows();
 	size_t cols();
-	double &operator()(size_t row, size_t col);
+	double& operator()(size_t row, size_t col);
+	Matrix operator * (const Matrix& matrix);
 	// const double &operator()(size_t row, size_t col) const;
 private:
 	size_t m_rows;
