@@ -1,3 +1,8 @@
+#include <iostream>
+#include <vector>
+#include <stdlib.h>
+
+
 #ifndef __MATRIX_H__
 #define __MATRIX_H__
 
@@ -11,7 +16,7 @@ private:
 	size_t m_rows;
 	size_t m_cols;
 	std::vector<double> m_data;
-}
+};
 
 
 #endif // __MATRIX_H__
