@@ -1,18 +1,17 @@
-#pragma once
-#include <vector>
-#include <iostream>
-
 #ifndef __MATRIX_H__
 #define __MATRIX_H__
+
+#include <vector>
+#include <iostream>
 
 class Matrix {
 public:
 	Matrix(size_t rows, size_t cols);
-	size_t rows();
-	size_t cols();
+	size_t rows() const;
+	size_t cols() const;
 	double& operator()(size_t row, size_t col);
 	Matrix operator * (const Matrix& matrix);
-	// const double &operator()(size_t row, size_t col) const;
+	const double &operator()(size_t row, size_t col) const;
 private:
 	size_t m_rows;
 	size_t m_cols;

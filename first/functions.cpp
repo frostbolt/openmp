@@ -1,6 +1,8 @@
 #include "functions.h"
 
-std::string toString(Matrix &matrix)
+#include <sstream>
+
+std::string toString(const Matrix& matrix)
 {
 	std::stringstream ss;
 	for (size_t i = 0; i < matrix.rows(); ++i) {
