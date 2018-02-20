@@ -1,9 +1,7 @@
 ifdef SYSTEMROOT
-   RM = del /Q
+    RM = del /Q
 else
-   ifeq ($(shell uname), Linux)
-      RM = rm -f
-   endif
+    RM = rm -f
 endif
 
 FLAGS = -std=c++0x

@@ -6,23 +6,19 @@ Matrix::Matrix(size_t rows, size_t cols)
     , m_data(rows * cols)
 {}
 
-size_t Matrix::rows() const
-{
+size_t Matrix::rows() const {
     return m_rows;
 }
 
-size_t Matrix::cols() const
-{
+size_t Matrix::cols() const {
     return m_cols;
 }
 
-double& Matrix::operator()(size_t row, size_t col)
-{
+double& Matrix::operator()(size_t row, size_t col) {
     return m_data[row * m_cols + col];
 }
 
-Matrix Matrix::operator*(const Matrix& matrix) 
-{
+Matrix Matrix::operator*(const Matrix& matrix) {
     Matrix res(m_rows, matrix.m_cols);
 
     if (m_cols == matrix.m_rows) {
@@ -37,7 +33,6 @@ Matrix Matrix::operator*(const Matrix& matrix)
     return res;
 }
 
-const double& Matrix::operator()(size_t row, size_t col) const
-{
+const double& Matrix::operator()(size_t row, size_t col) const {
     return m_data[row * m_cols + col];
 }
