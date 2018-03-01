@@ -40,6 +40,5 @@ private:
 
 Matrix mulSerial(const Matrix &first, const Matrix &second);
 std::string toString(const Matrix& matrix);
-Matrix randMatrix(size_t rows, size_t cols);
 
 #endif // __MATRIX_H__

@@ -31,38 +31,21 @@ std::string toString(const Matrix& matrix) {
 	return ss.str();
 }
 
-Matrix randMatrix(size_t rows, size_t cols) {
-	Matrix result(rows, cols);
-	// #pragma omp parallel shared(result)
-	// {
-	// 	std::random_device rd;
-	// 	std::mt19937 gen(rd());
-	// 	std::uniform_int_distribution<double> dis(0, 1); // linear distr ???
-	// 	#pragma omp for schedule(static)
-	// 	for (size_t i = 0; i < result.rows(); ++i)
-	// 		for (size_t j = 0; j < result.cols(); ++j)
-	// 			result(i, j)=dis(gen);
-	// }
-	return result;
-}
-
-
 Matrix Matrix::operator*(const Matrix& matrix) {
 	return mulSerial((*this), matrix);
 }
 
 std::vector<double> randVector(size_t size) {
-  std::vector<double> result(size);
-  #pragma omp parallel shared(result)
-  {
-    std::random_device rd;
-    std::mt19937_64 gen(rd());
-    std::uniform_real_distribution<double> dis(1.0, 2.0);
+	std::vector<double> result(size);
+	#pragma omp parallel shared(result)
+	{
+		std::random_device rd;
+		std::mt19937_64 gen(rd());
+		std::uniform_real_distribution<double> dis(1.0, 2.0);
 
-    #pragma omp for schedule(static)
-    for (size_t i = 0; i < size; i++) {
-      result[i] = dis(gen);
-    }
-  }
+		#pragma omp for schedule(static)
+		for (size_t i = 0; i < size; i++)
+			result[i] = dis(gen);
+	}
   return result;
 }
