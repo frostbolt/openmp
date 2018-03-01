@@ -32,15 +32,18 @@ std::string toString(const Matrix& matrix) {
 }
 
 static Matrix randMatrix(size_t rows, size_t cols) {
-	result = Matrix(rows, cols);
+	Matrix result(rows, cols);
 	#pragma omp parallel shared(result) {
 		std::random_device rd;
 		std::mt19937 gen(rd());
 		std::uniform_real_distribution<double> dis(0, 1); // linear distr ???
-		#pragma omp for schedule(static)
-			for (size_t i = 0; i < result.rows(); ++i)
-				for (size_t j = 0; j < result.cols(); ++j)
+		#pragma omp for schedule(static){
+			for (size_t i = 0; i < result.rows(); ++i){
+				for (size_t j = 0; j < result.cols(); ++j){
 					result(i, j)=dis(gen);
+				}
+			}
+		}
 	}
 	return result;
 }
