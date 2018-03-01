@@ -5,6 +5,8 @@
 #include <iostream>
 #include <string>
 
+std::vector<double> randVector(size_t size);
+
 class Matrix {
 public:
 	Matrix(size_t rows, size_t cols)
@@ -23,10 +25,17 @@ public:
 
 	Matrix operator * (const Matrix& matrix);
 
+	static Matrix rand(size_t rows, size_t cols) { return Matrix(rows, cols, randVector(rows * cols)); }
+
 private:
 	size_t m_rows;
 	size_t m_cols;
 	std::vector<double> m_data;
+	Matrix(size_t rows, size_t cols, std::vector<double> &&data)
+		: m_rows(rows)
+		, m_cols(cols)
+		, m_data(std::move(data))
+	{}
 };
 
 Matrix mulSerial(const Matrix &first, const Matrix &second);

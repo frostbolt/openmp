@@ -7,10 +7,8 @@ int main(){
 	constexpr size_t cols = 4;
 
 	Matrix A(rows, cols);
-	Matrix B(rows, cols);
+	Matrix B = Matrix::rand(rows, cols);
 	Matrix C(rows, cols);
-
-	B = randMatrix(rows, cols);
 
 	for (size_t i = 0; i < A.rows(); ++i) {
 		for (size_t j = 0; j < A.cols(); ++j) {
