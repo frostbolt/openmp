@@ -4,7 +4,7 @@ else
     RM = rm -f
 endif
 
-FLAGS = -std=c++0x
+FLAGS = -std=c++0x -O2
 #FLAGS = -std=c++11
 
 default: all
