@@ -22,5 +22,5 @@
 	```cpp
 	Matrix(size_t rows, size_t cols, std::vector<double> m_data)
 	 : m_rows(size_t rows), m_rows(size_t cols), m_rows(size_t cols) {} 
-		```
+	```
 
