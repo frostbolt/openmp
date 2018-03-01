@@ -12,8 +12,9 @@ int main(){
 
 	for (size_t i = 0; i < A.rows(); ++i) {
 		for (size_t j = 0; j < A.cols(); ++j) {
-			 A(i, j) = 1;
-			 C(i, j) = 0;
+				A(i, j) = 1;
+				B(i, j) = 1;
+				C(i, j) = 0;
 		}
 	}
 
