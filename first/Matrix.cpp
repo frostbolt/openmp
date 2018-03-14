@@ -6,29 +6,29 @@
 #include <stdexcept>
 #include <sstream>
 
-Matrix mulSerial(const Matrix &first, const Matrix &second) {
+Matrix mulSerial(const Matrix& first, const Matrix& second) {
 	Matrix result(first.rows(),second.cols());
 
 	if (first.cols() == second.rows())
 		for (size_t i = 0; i < result.rows(); ++i)
 			for (size_t j = 0; j < result.cols(); ++j)
 				for (size_t k = 0; k < result.rows(); ++k)
-					result(i,j) += first(i,k) * second(k,j);
+					result(i,j) += first(i, k) * second(k, j);
 	else
 		throw std::invalid_argument("Wrong dimensions");
 
 	return result;
 }
 
-Matrix mulParallel(const Matrix &first, const Matrix &second) {
-	Matrix result(first.rows(),second.cols());
+Matrix mulParallel(const Matrix& first, const Matrix& second) {
+	Matrix result(first.rows(), second.cols());
 	if (first.cols() == second.rows())
 		#pragma omp parallel for shared(result, first, second)
 		for (size_t i = 0; i < result.rows(); ++i)
 			for (size_t j = 0; j < result.cols(); ++j) {
-				result(i,j) = 0;
+				result(i, j) = 0;
 				for (size_t k = 0; k < result.rows(); ++k) 
-					result(i,j) += first(i,k) * second(k,j);
+					result(i, j) += first(i, k) * second(k, j);
 			}
 	else
 		throw std::invalid_argument("Wrong dimensions");

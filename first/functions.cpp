@@ -5,3 +5,4 @@ void benchmarkPrint(size_t dim, double initDuration, double mulDuration, double 
 	std::cout.precision(6);
 	std::cout << "║ " << dim << "\t" << initDuration << "\t" << mulDuration << "\t" << runtimeDuration << "\t" << "║" << std::endl;
 }
+

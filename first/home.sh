@@ -1,17 +1,21 @@
 #!/bin/bash
-for var in 1 2 4
-do 
 
-export OMP_NUM_THREADS=$var
+touch result.csv
 
-echo "threads:" $var
-echo "╔═══════════════════════════════════════════════════════╗"
-echo "║ dim   init            mul             runtime         ║"
-echo "╟───────────────────────────────────────────────────────╢"
-./main 200
-./main 400
-./main 1000
-./main 1500
-echo "╚═══════════════════════════════════════════════════════╝"
+num_for_repeat=5
+
+echo "NumThreads,Dim,InitTime,MulTime,Runtime" > result.csv
+for omp_threads in 1 2 3 4
+do
+
+export OMP_NUM_THREADS=$omp_threads
+
+for dim in 100 200 300 400 500 800 1000 1100 1200
+do
+	for ((i=0; i < $num_for_repeat; i++))
+	do
+	./main $dim >> result.csv
+	done
+done
 
 done

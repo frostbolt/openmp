@@ -1,6 +1,8 @@
 #include <iostream>
 #include <sstream>
 #include <chrono>
+#include <stdexcept>
+#include <omp.h>
 
 #include "functions.h"
 
@@ -46,7 +48,7 @@ int main(int argc, char* argv[]){
 	auto mulDuration = std::chrono::duration_cast<std::chrono::duration<double>>(mulTime - initTime);
 	auto runtimeDuration = std::chrono::duration_cast<std::chrono::duration<double>>(mulTime - startTime);
 
-	benchmarkPrint(rows, initDuration.count(), mulDuration.count(), runtimeDuration.count());
+	printCSV(omp_get_max_threads(), rows, initDuration.count(), mulDuration.count(), runtimeDuration.count());
 
 	return 0;
 }
