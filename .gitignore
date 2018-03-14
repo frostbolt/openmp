@@ -33,3 +33,9 @@ main
 *.exe
 *.out
 *.app
+
+# Notebook Checkpoints
+.ipynb_checkpoints/
+
+# result.csv
+result.csv
