@@ -3,5 +3,6 @@
 
 #include "Matrix.h"
 
+void benchmarkPrint(size_t dim, double initDuration, double mulDuration, double runtimeDuration);
 
 #endif // __FUNCTIONS_H__

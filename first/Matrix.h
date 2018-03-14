@@ -27,6 +27,8 @@ public:
 
 	static Matrix rand(size_t rows, size_t cols) { return Matrix(rows, cols, randVector(rows * cols)); }
 
+	std::string toString();
+
 private:
 	size_t m_rows;
 	size_t m_cols;
@@ -39,6 +41,6 @@ private:
 };
 
 Matrix mulSerial(const Matrix &first, const Matrix &second);
-std::string toString(const Matrix& matrix);
+// std::string toString(const Matrix& matrix);
 
 #endif // __MATRIX_H__

@@ -36,11 +36,11 @@ Matrix mulParallel(const Matrix &first, const Matrix &second) {
 	return result;
 }
 
-std::string toString(const Matrix& matrix) {
+std::string Matrix::toString() {
 	std::stringstream ss;
-	for (size_t i = 0; i < matrix.rows(); ++i) {
-		for (size_t j = 0; j < matrix.cols(); ++j) {
-			ss << matrix(i, j) << " ";
+	for (size_t i = 0; i < (*this).rows(); ++i) {
+		for (size_t j = 0; j < (*this).cols(); ++j) {
+			ss << (*this)(i, j) << " ";
 		}
 		ss << std::endl;
 	}
