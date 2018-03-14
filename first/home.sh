@@ -1,13 +1,10 @@
 #!/bin/bash
-
-
 for var in 1 2 4
 do 
 
-omp_threads=$var
-export OMP_NUM_THREADS=$omp_threads
+export OMP_NUM_THREADS=$var
 
-echo "threads:" $omp_threads
+echo "threads:" $var
 echo "╔═══════════════════════════════════════════════════════╗"
 echo "║ dim   init            mul             runtime         ║"
 echo "╟───────────────────────────────────────────────────────╢"
