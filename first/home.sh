@@ -10,7 +10,7 @@ do
 
 export OMP_NUM_THREADS=$omp_threads
 
-for dim in 100 200 300 400 500 800 1000 1100 1200
+for dim in 500 1000 1500 2000
 do
 	for ((i=0; i < $num_for_repeat; i++))
 	do
