@@ -1,4 +1,3 @@
-
 #!/bin/bash
 #SBATCH --job-name=mulMatrix
 #SBATCH --output=result.csv
