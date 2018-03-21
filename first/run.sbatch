@@ -12,7 +12,7 @@
 num_for_repeat=5
 
 echo "NumThreads,Dim,InitTime,MulTime,Runtime" 
-for omp_threads in 1 2 3 4
+for omp_threads in 1 2 4 6 8 10 12 14 16 18 20
 do
 
 export OMP_NUM_THREADS=$omp_threads

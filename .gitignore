@@ -36,6 +36,3 @@ main
 
 # Notebook Checkpoints
 .ipynb_checkpoints/
-
-# result.csv
-result.csv
