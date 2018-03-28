@@ -20,15 +20,12 @@ Ep_subplt.set_title('Efficiency')
 Ep_subplt.set_xlabel('threads')
 Ep_subplt.set_ylabel("$E_{p}$")
 
-sub_df = mean_values.loc[mean_values.Dim == 500]
-
 for dimension in sorted(set(mean_values['Dim'])):
 	sub_df = mean_values.loc[mean_values.Dim == dimension]
 	one_thread_t = float(sub_df[sub_df.NumThreads == 1]['Runtime'])
 	acceleration = one_thread_t / np.array(sub_df['Runtime'])
-	efficiency = acceleration / np.array(sub_df['NumThreads']) #поделить поэлементно
-	print(acceleration)
-	print(np.array(sub_df['NumThreads']))
+	efficiency = acceleration / np.array(sub_df['NumThreads']) 
+	
 	rt_subplt.plot(sub_df['NumThreads'], sub_df['Runtime'], marker = "o", label = "{dim}x{dim}".format(dim = dimension))
 	Sp_subplt.plot(sub_df['NumThreads'], acceleration, marker=".", label="{dim}x{dim}".format(dim = dimension))
 	Ep_subplt.plot(sub_df['NumThreads'], efficiency, marker=".", label="{dim}x{dim}".format(dim = dimension))
