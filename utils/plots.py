@@ -2,7 +2,7 @@ import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 
-mean_values = pd.read_csv('result.csv').groupby(['NumThreads','Dim'], as_index = False).mean()
+mean_values = pd.read_csv('result_home.csv').groupby(['NumThreads','Dim'], as_index = False).mean()
 
 fig = plt.figure()
 
@@ -13,7 +13,7 @@ Ep_subplt = fig.add_subplot(222)
 rt_subplt.set_title('runtime')
 rt_subplt.set_xlabel('threads')
 rt_subplt.set_ylabel('time')
-Sp_subplt.set_title('Acceleration')
+Sp_subplt.set_title('Speedup')
 Sp_subplt.set_xlabel('threads')
 Sp_subplt.set_ylabel("$S_{p}$")
 Ep_subplt.set_title('Efficiency')
