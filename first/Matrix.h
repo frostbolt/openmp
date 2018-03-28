@@ -42,5 +42,5 @@ private:
 
 Matrix mulSerial(const Matrix &first, const Matrix &second);
 std::string toString(const Matrix& matrix);
-
+Matrix transpMatrix(const Matrix& matrix);
 #endif // __MATRIX_H__

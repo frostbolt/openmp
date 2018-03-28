@@ -24,12 +24,30 @@ Matrix mulParallel(const Matrix& first, const Matrix& second) {
 	Matrix result(first.rows(), second.cols());
 	if (first.cols() == second.rows())
 		#pragma omp parallel for shared(result, first, second)
-		for (size_t i = 0; i < result.rows(); ++i)
+		for (size_t i = 0; i < result.rows(); ++i) 
 			for (size_t j = 0; j < result.cols(); ++j) {
 				result(i, j) = 0;
 				for (size_t k = 0; k < result.rows(); ++k) 
 					result(i, j) += first(i, k) * second(k, j);
 			}
+	else
+		throw std::invalid_argument("Wrong dimensions");
+
+	return result;
+}
+
+Matrix mulParallel2(const Matrix& first, const Matrix& second) {
+	Matrix result(first.rows(), second.cols());
+	if (first.cols() == second.rows()) {
+		Matrix secT = transpMatrix(second);
+		#pragma omp parallel for shared(result, first, secT)
+		for (size_t i = 0; i < result.rows(); ++i) 
+			for (size_t j = 0; j < result.cols(); ++j) {
+				result(i, j) = 0;
+				for (size_t k = 0; k < result.rows(); ++k) 
+					result(i, j) += first(i, k) * secT(j, k);
+			}
+	}
 	else
 		throw std::invalid_argument("Wrong dimensions");
 
@@ -48,7 +66,7 @@ std::string Matrix::toString() {
 }
 
 Matrix Matrix::operator*(const Matrix& matrix) {
-	return mulParallel((*this), matrix);
+	return mulParallel2((*this), matrix);
 }
 
 std::vector<double> randVector(size_t size) {
@@ -63,5 +81,15 @@ std::vector<double> randVector(size_t size) {
 		for (size_t i = 0; i < size; i++)
 			result[i] = dis(gen);
 	}
+  return result;
+}
+
+Matrix transpMatrix(const Matrix& matrix) {
+	Matrix result(matrix.cols(), matrix.rows());
+	#pragma omp parallel for shared(result)
+	for (size_t i = 0; i < matrix.rows(); ++i)
+		for (size_t j = 0; j < matrix.cols(); ++j) 
+			result(i, j) = matrix(j, i);
+		
   return result;
 }
