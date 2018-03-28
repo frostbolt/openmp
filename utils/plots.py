@@ -23,11 +23,11 @@ Ep_subplt.set_ylabel("$E_{p}$")
 for dimension in sorted(set(mean_values['Dim'])):
 	sub_df = mean_values.loc[mean_values.Dim == dimension]
 	one_thread_t = float(sub_df[sub_df.NumThreads == 1]['Runtime'])
-	acceleration = one_thread_t / np.array(sub_df['Runtime'])
-	efficiency = acceleration / np.array(sub_df['NumThreads']) 
-	
+	speedup = one_thread_t / np.array(sub_df['Runtime'])
+	efficiency = speedup / np.array(sub_df['NumThreads']) 
+
 	rt_subplt.plot(sub_df['NumThreads'], sub_df['Runtime'], marker = "o", label = "{dim}x{dim}".format(dim = dimension))
-	Sp_subplt.plot(sub_df['NumThreads'], acceleration, marker=".", label="{dim}x{dim}".format(dim = dimension))
+	Sp_subplt.plot(sub_df['NumThreads'], speedup, marker=".", label="{dim}x{dim}".format(dim = dimension))
 	Ep_subplt.plot(sub_df['NumThreads'], efficiency, marker=".", label="{dim}x{dim}".format(dim = dimension))
 rt_subplt.legend()
 
