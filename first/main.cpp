@@ -30,16 +30,6 @@ int main(int argc, char* argv[]){
 
 	auto initTime = std::chrono::steady_clock::now();
 
-	// // eye
-	// for (size_t i = 0; i < A.rows(); ++i) {
-	// 	for (size_t j = 0; j < A.cols(); ++j) {
-	// 			if (i==j) 
-	// 				A(i, j) = 1;
-	// 			else
-	// 				A(i, j) = 0;
-	// 	}
-	// }
-
 	C = A * B;
 
 	auto mulTime = std::chrono::steady_clock::now(); //end

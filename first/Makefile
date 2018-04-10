@@ -1,3 +1,8 @@
+# 0 - последовательное умножение матрицы
+# 1 - обычное умножение матрицы openmp
+# 2 - необычное умножение матрицы openmp
+TYPE_MUL = -DMATRTIX_MUL=1
+
 COMPILER = g++
 
 FLAGS = -std=c++0x -O2 -Wall -Wextra -Wpedantic -fopenmp
@@ -27,7 +32,7 @@ functions.o:
 	$(COMPILER) -c $(FLAGS) functions.cpp -o functions.o
 
 Matrix.o:
-	$(COMPILER) -c $(FLAGS) Matrix.cpp -o Matrix.o
+	$(COMPILER) -c $(FLAGS) $(TYPE_MUL) Matrix.cpp -o Matrix.o
 
 clean:
 	$(RM) *.o all

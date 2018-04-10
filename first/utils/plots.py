@@ -2,7 +2,7 @@ import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 
-mean_values = pd.read_csv('result_home.csv').groupby(['NumThreads','Dim'], as_index = False).mean()
+mean_values = pd.read_csv('result_trs_home.csv').groupby(['NumThreads','Dim'], as_index = False).mean()
 
 fig = plt.figure()
 

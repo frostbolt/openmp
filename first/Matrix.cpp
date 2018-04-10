@@ -6,6 +6,14 @@
 #include <stdexcept>
 #include <sstream>
 
+//
+
+#ifndef MATRIX_MUL
+#define MATRIX_MUL 2
+#endif
+
+// 
+
 Matrix mulSerial(const Matrix& first, const Matrix& second) {
 	Matrix result(first.rows(),second.cols());
 
@@ -39,7 +47,7 @@ Matrix mulParallel(const Matrix& first, const Matrix& second) {
 Matrix mulParallel2(const Matrix& first, const Matrix& second) {
 	Matrix result(first.rows(), second.cols());
 	if (first.cols() == second.rows()) {
-		Matrix secT = transpMatrix(second);
+		Matrix secT = transpose(second);
 		#pragma omp parallel for shared(result, first, secT)
 		for (size_t i = 0; i < result.rows(); ++i) 
 			for (size_t j = 0; j < result.cols(); ++j) {
@@ -66,7 +74,15 @@ std::string Matrix::toString() {
 }
 
 Matrix Matrix::operator*(const Matrix& matrix) {
-	return mulParallel2((*this), matrix);
+	#if MATRTIX_MUL==0
+		return mulSerial((*this), matrix);
+	#elif MATRTIX_MUL==1
+		return mulParallel((*this), matrix);
+	#elif MATRTIX_MUL==2
+		return mulParallel2((*this), matrix);
+	#else
+		#error INVALID ARGUMENT MATRTIX_MUL
+	#endif
 }
 
 std::vector<double> randVector(size_t size) {
@@ -84,7 +100,7 @@ std::vector<double> randVector(size_t size) {
   return result;
 }
 
-Matrix transpMatrix(const Matrix& matrix) {
+Matrix transpose(const Matrix& matrix) {
 	Matrix result(matrix.cols(), matrix.rows());
 	#pragma omp parallel for shared(result)
 	for (size_t i = 0; i < matrix.rows(); ++i)
