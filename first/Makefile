@@ -36,9 +36,3 @@ Matrix.o:
 
 clean:
 	$(RM) *.o all
-
-report:
-	python utils/plots.py utils/result_home
-	python utils/plots.py utils/result_trs_home
-	pdflatex -synctex=1 -interaction=nonstopmode ./utils/report.tex
-	$(RM) *.aux *.log *.synctex.gz
