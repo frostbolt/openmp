@@ -1,8 +1,14 @@
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
+import sys
 
-mean_values = pd.read_csv('result_trs_home.csv').groupby(['NumThreads','Dim'], as_index = False).mean()
+file = "result"
+
+if len(sys.argv) > 1:
+	file = sys.argv[1]
+
+mean_values = pd.read_csv('{}.csv'.format(file)).groupby(['NumThreads','Dim'], as_index = False).mean()
 
 fig = plt.figure()
 
@@ -32,4 +38,4 @@ for dimension in sorted(set(mean_values['Dim'])):
 rt_subplt.legend()
 
 plt.subplots_adjust(wspace=0.5, hspace=0.6)
-plt.show()
+plt.savefig('{}.pdf'.format(file))
