@@ -1,7 +1,7 @@
 # 0 - последовательное умножение матрицы
 # 1 - обычное умножение матрицы openmp
 # 2 - необычное умножение матрицы openmp
-TYPE_MUL = -DMATRTIX_MUL=1
+TYPE_MUL = -DMATRTIX_MUL=2
 
 COMPILER = g++
 
@@ -10,7 +10,7 @@ FLAGS = -std=c++0x -O2 -Wall -Wextra -Wpedantic -fopenmp
 
 OS := $(shell uname)
 ifeq ($(OS),Darwin)
-	COMPILER = g++-7
+	COMPILER = g++-8
 endif
 
 ifdef SYSTEMROOT
@@ -36,3 +36,9 @@ Matrix.o:
 
 clean:
 	$(RM) *.o all
+
+report:
+	python utils/plots.py utils/result_home
+	python utils/plots.py utils/result_trs_home
+	pdflatex -synctex=1 -interaction=nonstopmode ./utils/report.tex
+	$(RM) *.aux *.log *.synctex.gz
