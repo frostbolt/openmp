@@ -1,0 +1,129 @@
+% !TeX encoding = UTF-8
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage[english,russian]{babel}
+\usepackage[T2A]{fontenc}
+
+\usepackage{amsmath,amsfonts,amssymb,amsthm,mathtools} % AMS
+\usepackage{icomma}
+\usepackage{mathrsfs}
+
+\usepackage{graphicx}
+\usepackage{fancyhdr}
+\usepackage{listings}
+\usepackage{xcolor} % for setting colors
+\lstset{
+	basicstyle=\scriptsize\ttfamily,
+	commentstyle=\ttfamily\color{gray},
+	numbers=left,
+	numberstyle=\ttfamily\color{gray}\footnotesize,
+	stepnumber=1,
+	numbersep=5pt,
+	backgroundcolor=\color{gray!10},
+	rulecolor=\color{black!30},
+	showspaces=false,
+	showstringspaces=false,
+	showtabs=false,
+	frame=single,
+	tabsize=2,
+	captionpos=b,
+	breaklines=true,
+	breakatwhitespace=false,
+	title=\lstname,
+	escapeinside={},
+	keywordstyle={},
+	morekeywords={},
+    extendedchars=false,
+    inputencoding=utf8
+}
+
+\usepackage[left=3cm,right=1.5cm,top=2cm,bottom=2cm]{geometry}
+\author{Игорь Комолых, Сергей Лущик}
+\title{Лабораторные работы по курсу "Параллельное~и~распределённое~программирование"}
+\date{\today}
+
+\begin{document}
+	\begin{titlepage}
+		\maketitle
+	\end{titlepage}
+	
+	\section{Умножение матриц}\label{sec:lab1}
+
+	Эта лабораторная работа заключалась в сравнении последовательной и параллельной реализации алгоритмов умножения матриц,
+	а так же в сравнении времени работы программы при разных способах обхода массива.
+
+	В результате выполнения работы были получены:
+	\begin{itemize}
+		\item описанный класс Matrix
+		\item bash и sbatch файлы запуска программы на персональных компьютерах и кластере САФУ
+		\item python-скрипт для построения графиков из полученных данных.
+ 	\end{itemize}
+
+	Результатом выполнения программы является строка, в которой через запятую указаны количество используемых потоков, размерность квадратной матрицы, время работы. При запуске bash или sbatch сценариев, происходит формирование CSV-файла, по данным которого в дальнейшем можно строить графики ускорения, эффективности и вреиени работы (см. Рис.~\ref{fig:beforeChange} и~\ref{fig:afterChange}). Программы собирались и запускались на вычислительном кластере САФУ.
+
+	\begin{figure}[h]
+		\centering
+		\includegraphics[scale=.5]{result}
+		\caption{графики до смены порядка обхода матриц.}
+		\label{fig:beforeChange} 
+	\end{figure}
+
+	\begin{figure}[h]
+		\centering
+		\includegraphics[scale=.5]{result_trs}
+		\caption{графики после смены порядка обхода матриц.}
+		\label{fig:afterChange} 
+	\end{figure}
+
+	По рис.~\ref{fig:beforeChange} и~\ref{fig:afterChange} видно, что после изменения порядка обхода матрицы с привычного ``строки-столбцы'' на ``столбцы-строки'' (см. Листинг~\ref{lst:matrixLookup}) время работы программы может сокращаться в 2 и более раза, в некоторых случаях удавалось достичь ускорения в 4-5 раз.
+
+	Данный пример демонстрирует особености устройства кэша процессора и оперативной памяти. При обращении к какой-либо ячейке памяти, в кэш вместе с ней загружаются и несколько соседних ячеек. При обращении в порядке ``строки-столбцы'' два элемента, над которыми производятся операции в смежных итерациях алгоритма, в памяти будут находиться на расстоянии, равном размеру строки матрицы. Если же обходить массивы в порядке ``столбцы-строки'', смежные итерации будут опрерировать элеентами одной строки матрицы, элементы которой располагаются в памяти друг за другом.
+	
+	\begin{lstlisting}[language=C++, caption={Два способа обхода матрицы}, label={lst:matrixLookup}, texcl=true]
+
+	//
+	// строки-столбцы
+	//
+	
+	#include <iostream>
+		Matrix mulParallel(const Matrix& first, const Matrix& second) {
+			Matrix result(first.rows(), second.cols());
+			if (first.cols() == second.rows())
+				#pragma omp parallel for shared(result, first, second)
+				for (size_t i = 0; i < result.rows(); ++i) 
+					for (size_t j = 0; j < result.cols(); ++j) {
+						result(i, j) = 0;
+						for (size_t k = 0; k < result.rows(); ++k) 
+							result(i, j) += first(i, k) * second(k, j);
+					}
+			else
+				throw std::invalid_argument("Wrong dimensions");
+
+			return result;
+		}
+
+		//
+		// столбцы-строки
+		//
+
+		Matrix mulParallel2(const Matrix& first, const Matrix& second) {
+			Matrix result(first.rows(), second.cols());
+			if (first.cols() == second.rows()) {
+				#pragma omp parallel for shared(result, first, second)
+				for (size_t j = 0; j < result.cols(); ++j) 
+					for (size_t i = 0; i < result.rows(); ++i) {
+						result(i, j) = 0;
+						for (size_t k = 0; k < result.rows(); ++k) 
+							result(i, j) += first(i, k) * second(j, k);
+					}
+			}
+			else
+				throw std::invalid_argument("Wrong dimensions");
+
+			return result;
+		}
+
+	\end{lstlisting}
+	\section{Краевая задача}\label{sec:lab2}
+	С использованием класса матриц, полученного в ходе выполения первой лабораторной
+\end{document}
