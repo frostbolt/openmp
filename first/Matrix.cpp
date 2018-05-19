@@ -47,13 +47,12 @@ Matrix mulParallel(const Matrix& first, const Matrix& second) {
 Matrix mulParallel2(const Matrix& first, const Matrix& second) {
 	Matrix result(first.rows(), second.cols());
 	if (first.cols() == second.rows()) {
-		Matrix secT = transpose(second);
-		#pragma omp parallel for shared(result, first, secT)
-		for (size_t i = 0; i < result.rows(); ++i) 
-			for (size_t j = 0; j < result.cols(); ++j) {
+		#pragma omp parallel for shared(result, first, second)
+		for (size_t j = 0; j < result.cols(); ++j) 
+			for (size_t i = 0; i < result.rows(); ++i) {
 				result(i, j) = 0;
 				for (size_t k = 0; k < result.rows(); ++k) 
-					result(i, j) += first(i, k) * secT(j, k);
+					result(i, j) += first(i, k) * second(j, k);
 			}
 	}
 	else
