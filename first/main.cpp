@@ -6,7 +6,7 @@
 
 #include "functions.h"
 
-int main(int argc, char* argv[]){
+int main(int argc, char* argv[]) {
 
 	auto startTime = std::chrono::steady_clock::now();
 
@@ -16,7 +16,7 @@ int main(int argc, char* argv[]){
 		std::istringstream ss(argv[1]);
 		int dim;
 		if (!(ss >> dim)){
-			throw std::invalid_argument("Wrong ARGV");
+			throw std::invalid_argument("INVALID ARGV");
 		} else {
 			rows = dim;
 			cols = dim;

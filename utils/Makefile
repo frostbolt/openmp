@@ -1,6 +1,5 @@
 default: report
 
-
 report:
 	python plots.py result
 	python plots.py result_trs

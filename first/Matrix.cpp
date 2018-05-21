@@ -23,7 +23,7 @@ Matrix mulSerial(const Matrix& first, const Matrix& second) {
 				for (size_t k = 0; k < result.rows(); ++k)
 					result(i,j) += first(i, k) * second(k, j);
 	else
-		throw std::invalid_argument("Wrong dimensions");
+		throw std::invalid_argument("INVALID ARGUMENT DIM");
 
 	return result;
 }
@@ -39,7 +39,7 @@ Matrix mulParallel(const Matrix& first, const Matrix& second) {
 					result(i, j) += first(i, k) * second(k, j);
 			}
 	else
-		throw std::invalid_argument("Wrong dimensions");
+		throw std::invalid_argument("INVALID ARGUMENT DIM");
 
 	return result;
 }
@@ -56,21 +56,27 @@ Matrix mulParallel2(const Matrix& first, const Matrix& second) {
 			}
 	}
 	else
-		throw std::invalid_argument("Wrong dimensions");
+		throw std::invalid_argument("INVALID ARGUMENT DIM");
 
 	return result;
 }
+
 
 std::string Matrix::toString() {
 	std::stringstream ss;
 	for (size_t i = 0; i < (*this).rows(); ++i) {
 		for (size_t j = 0; j < (*this).cols(); ++j) {
-			ss << (*this)(i, j) << " ";
+			ss << (*this)(i, j);
+			if (j != (*this).cols()-1 ) ss << " ";
 		}
 		ss << std::endl;
 	}
 	return ss.str();
 }
+
+// std::string toString(const Matrix& matrix) {
+// 	return matrix.toString();
+// }
 
 Matrix Matrix::operator*(const Matrix& matrix) {
 	#if MATRTIX_MUL==0
