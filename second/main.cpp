@@ -10,7 +10,7 @@ int main() {
 	auto startTime = std::chrono::steady_clock::now();
 
 	
-	std::cout << solveDirichlet(99, 0.0001).toString();
+	std::cout << solveDirichlet(98, 0.01).toString();
 
 	auto runtime = std::chrono::steady_clock::now();
 	auto runtimeDuration = std::chrono::duration_cast<std::chrono::duration<double>>(runtime - startTime);

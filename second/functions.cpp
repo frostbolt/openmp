@@ -10,7 +10,7 @@ Matrix solveDirichletSerial(int N,  double eps) {
 
 	for (int i = 0; i < N; i++) {
 		for (int j = 0; j < N; j++)
-			f_mat(i,  j) = f_mat((i + 1) * h,  (j + 1) * h);
+			f_mat(i,  j) = f((i + 1) * h,  (j + 1) * h);
 	}
 
 	for (int i = 1; i < N + 1; i++) {
@@ -49,7 +49,7 @@ Matrix solveDirichlet(int N,  double eps) {
 
 	for (int i = 0; i < N; i++) {
 		for (int j = 0; j < N; j++)
-			f_mat(i,  j) = f_mat((i + 1) * h,  (j + 1) * h);
+			f_mat(i,  j) = f((i + 1) * h,  (j + 1) * h);
 	}
 
 	for (int i = 1; i < N + 1; i++) {
@@ -71,7 +71,7 @@ Matrix solveDirichlet(int N,  double eps) {
 		// нарастание волны (k - длина фронта волны)
 		for (int k = 0; k < N+1; k++) {
 			mx[k] = 0;
-			#pragma omp parallel for shared(u_mat, N, max) schedule(static, 1)
+			#pragma omp parallel for shared(u_mat, N, max) private(j, u0, d) schedule(static, 1)
 			for (int i = 0; i < k+1; i++) {
 				j = k + 1 - i;
 				u0 = u_mat(i, j);
@@ -80,9 +80,8 @@ Matrix solveDirichlet(int N,  double eps) {
 				if (d > mx[i]) mx[i] = d;
 			}
 		}
-
 		for (int k = 0; k < N-1; k--) {
-			#pragma omp parallel for shared(u_mat, N, max) schedule(static, 1)
+			#pragma omp parallel for shared(u_mat, N, max) private(j, u0, d) schedule(static, 1)
 			for (int i = 0; i < N-k+1; i++) {
 				j = 2*N - k -i + 1;
 				u0 = u_mat(i, j);
