@@ -9,4 +9,5 @@ double g(double x, double y) {
 	return (y-0.5)*(y-0.5) + (x-0.5)*(x-0.5);
 }
 
+
 #endif //__CONDITION_H__

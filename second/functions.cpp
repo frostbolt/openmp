@@ -69,10 +69,10 @@ Matrix solveDirichlet(int N,  double eps) {
 	{
 		IterCnt++;
 		// нарастание волны (k - длина фронта волны)
-		for (int k = 0; k < N+1; k++) {
+		for (int k = 1; k < N+1; k++) {
 			mx[k] = 0;
 			#pragma omp parallel for shared(u_mat, N, max) private(j, u0, d) schedule(static, 1)
-			for (int i = 0; i < k+1; i++) {
+			for (int i = 1; i < k+1; i++) {
 				j = k + 1 - i;
 				u0 = u_mat(i, j);
 				u_mat(i, j) = 0.25 * (u_mat(i-1, j) +u_mat(i+1, j) + u_mat(i, j-1) + u_mat(i, j+1) - h*h*f_mat(i-1, j-1));
@@ -80,10 +80,10 @@ Matrix solveDirichlet(int N,  double eps) {
 				if (d > mx[i]) mx[i] = d;
 			}
 		}
-		for (int k = 0; k < N-1; k--) {
+		for (int k = N-1; k > 0; k--) {
 			#pragma omp parallel for shared(u_mat, N, max) private(j, u0, d) schedule(static, 1)
-			for (int i = 0; i < N-k+1; i++) {
-				j = 2*N - k -i + 1;
+			for (int i = N-k+1; i < N+1; i++){
+				j = 2*N - k - i + 1;
 				u0 = u_mat(i, j);
 				u_mat(i, j) = 0.25 * (u_mat(i-1, j) +u_mat(i+1, j) + u_mat(i, j-1) + u_mat(i, j+1) - h*h*f_mat(i-1, j-1));
 				d = std::fabs(u_mat(i, j) - u0);
@@ -91,7 +91,7 @@ Matrix solveDirichlet(int N,  double eps) {
 			}
 		}
 		max = 0;
-		for (int i = 0; i < N+1; i++) {
+		for (int i = 1; i < N+1; i++) {
 			if (mx[i] > max) max = mx[i];
 		}
 	} while (max > eps);

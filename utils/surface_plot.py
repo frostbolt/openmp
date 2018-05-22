@@ -11,11 +11,10 @@ if len(sys.argv) > 1:
 
 data = pd.read_csv("surface.csv", header=None, sep=" ")
 
-
 Z=np.array(data)
-print(Z.shape[1])
-X = np.arange(0, 1, 1./Z.shape[1])
-Y = np.arange(0,1, 1./Z.shape[1])
+
+X = np.arange(0, Z.shape[0], 1)
+Y = np.arange(0, Z.shape[1], 1)
 
 X2D,Y2D = np.meshgrid(X,Y)
 
