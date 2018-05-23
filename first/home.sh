@@ -14,7 +14,7 @@ for dim in 500 1000 1500 2000
 do
 	for ((i=0; i < $num_for_repeat; i++))
 	do
-	./main $dim >> result.csv
+	./main $dim > result.csv
 	done
 done
 
