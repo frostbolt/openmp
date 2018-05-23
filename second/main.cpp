@@ -7,20 +7,20 @@ int main(int argc, char *argv[]) {
 
 	char *opts = "dim:eps"; 
 
-	size_t n = 99;
-	double eps = 0.001;
+	size_t N = 99;
+	double EPS = 0.001;
 	int opt;
-	while((opt = getopt(argc, argv, opts)) != -1) {
-		switch(opt) {
-			case 'dim':
-				n = atoi(optarg);
-				break;
-			case 'eps':
-				eps = atoi(optarg);
-				break;
-		}
-	}
+    while((opt = getopt(argc, argv, opts)) != -1) {
+        switch(opt) {
+            case 'dim':
+	            N = atoi(optarg);
+	            break;
+             case 'eps':
+	            EPS = atof(optarg);
+	            break;
+        }
+    }
 
-	std::cout << solveDirichlet(n, eps).toString();
+	std::cout << solveDirichlet(N, EPS).toString();
 	return 0;
 }
