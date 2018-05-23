@@ -1,26 +1,20 @@
 #include <iostream>
-#include <unistd.h>
-
+#include <stdexcept>
 #include "functions.h"
 
 int main(int argc, char *argv[]) {
-
-	char *opts = "dim:eps"; 
-
 	size_t N = 99;
-	double EPS = 0.001;
-	int opt;
-    while((opt = getopt(argc, argv, opts)) != -1) {
-        switch(opt) {
-            case 'dim':
-	            N = atoi(optarg);
-	            break;
-             case 'eps':
-	            EPS = atof(optarg);
-	            break;
-        }
-    }
+	double eps = 0.001;
+	if (argc > 1){
+		std::istringstream ss(argv[1]);
+		int dim;
+		if (!(ss >> dim)){
+			throw std::invalid_argument("INVALID ARGV");
+		} else {
+			N = dim;
+		}
+	}
 
-	std::cout << solveDirichlet(N, EPS).toString();
+	std::cout << solveDirichlet(N, eps).toString();
 	return 0;
 }
