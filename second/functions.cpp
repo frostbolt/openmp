@@ -71,7 +71,7 @@ DirichletResult solveDirichlet(size_t N,  double eps) {
 
 	double max, u0, d;
 	size_t j, iterations = 0;
-	std::vector<double> mx(N);
+	std::vector<double> mx(N+2);
 	do
 	{
 		iterations++;
