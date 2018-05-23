@@ -1,9 +1,7 @@
 #include <iostream>
-#include <omp.h>
-
 #include "functions.h"
 
 int main() {	
-	std::cout << solveDirichlet(1000).toString();
+	std::cout << solveDirichlet(100, 0.001).toString();
 	return 0;
 }
