@@ -1,5 +1,5 @@
 #!/bin/bash
-#SBATCH --job-name=mulMatrix
+#SBATCH --job-name=dirichlet
 #SBATCH --output=result.csv
 #SBATCH --ntasks=1
 #
@@ -22,7 +22,7 @@ do
 	do
 		for ((i=0; i < $num_for_repeat; i++))
 		do
-		./main $dim > ./lab2_results/surface_${omp_threads}_${dim}_${num_for_repeat}.csv
+		./main $dim > ./lab2_results/surface_${omp_threads}_${dim}_${i}.csv
 		done
 	done
 
