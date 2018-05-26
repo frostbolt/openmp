@@ -15,6 +15,6 @@ int main(int argc, char *argv[]) {
 		}
 	}
 
-	std::cout << solveDirichlet(N-2, eps).toString();
+	std::cout << solveDirichlet(N-2, eps).benchmark();
 	return 0;
 }

@@ -15,8 +15,12 @@ struct DirichletResult {
 
 	std::string toString() {
 		std::stringstream ss;
-
 		ss << surface.toString() << num_threads << "," << iterations << "," << runtime << "," << surface.cols() << "," << eps << std::endl;
+		return ss.str();
+	}
+	std::string benchmark() {
+		std::stringstream ss;
+		ss << num_threads << "," << iterations << "," << runtime << "," << surface.cols() << "," << eps << std::endl;
 		return ss.str();
 	}
 };
