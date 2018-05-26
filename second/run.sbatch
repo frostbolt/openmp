@@ -10,8 +10,7 @@
 
 num_for_repeat=5
 
-rm -rf ./lab2_results/
-mkdir ./lab2_results/
+
 
 for omp_threads in 1 2 4 6 8 10 12 14 16 18 20
 do
@@ -22,7 +21,7 @@ do
 	do
 		for ((i=0; i < $num_for_repeat; i++))
 		do
-		./main $dim > ./lab2_results/surface_${omp_threads}_${dim}_${i}.csv
+		./main $dim
 		done
 	done
 
