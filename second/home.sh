@@ -8,7 +8,7 @@ export OMP_NUM_THREADS=$omp_threads
 
 for dim in 100 300 600 900 
 do
-	./main $dim > ../utils/lab2_results/surface_${omp_threads}_${dim}.csv
+	./main $dim 
 done
 
 done
