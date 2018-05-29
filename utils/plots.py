@@ -55,7 +55,7 @@ def read_results(directory):
 	return details
 
 # read_results("lab2_results")
-details = pd.read_csv("dirichlet_benchmark.csv")
+details = pd.read_csv("dirichlet_benchmark.csv").groupby(['NumThreads','Dim'], as_index = False).mean()
 build_efficiency_plots(details, "d_plots")
 
 df = pd.read_csv("surface_16_600.csv", header=None, sep=" ")
