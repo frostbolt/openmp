@@ -11,6 +11,7 @@
 num_for_repeat=5
 
 
+echo "NumThreads,Iterations,Runtime,Dim,Eps"
 
 for omp_threads in 1 2 4 6 8 10 12 14 16 18 20
 do

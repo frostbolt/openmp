@@ -78,7 +78,7 @@ DirichletResult solveDirichlet(size_t N,  double eps) {
 		// нарастание волны (k - длина фронта волны)
 		for (size_t k = 1; k < N+1; k++) {
 			mx[k] = 0;
-			#pragma omp parallel for shared(u_mat, k, max) private(i, j, u0, d) 
+			#pragma omp parallel for shared(u_mat, k, mx) private(i, j, u0, d) schedule(static, 1)
 			for (i = 1; i < k+1; i++) {
 				j = k + 1 - i;
 				u0 = u_mat(i, j);
@@ -88,7 +88,7 @@ DirichletResult solveDirichlet(size_t N,  double eps) {
 			}
 		}
 		for (size_t k = N-1; k > 0; k--) {
-			#pragma omp parallel for shared(u_mat, N, mx) private(i, j, u0, d)
+			#pragma omp parallel for shared(u_mat, k, mx) private(i, j, u0, d) schedule(static, 1)
 			for (i = N-k+1; i < N+1; i++){
 				j = 2*N - k - i + 1;
 				u0 = u_mat(i, j);
