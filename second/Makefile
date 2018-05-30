@@ -5,7 +5,7 @@ TYPE_MUL = -DMATRTIX_MUL=2
 
 COMPILER = g++
 
-FLAGS = -std=c++0x -Wall -Wextra -Wpedantic -fopenmp -O2
+FLAGS = -std=c++0x -Wall -Wextra -Wpedantic -fopenmp #-O2
 #FLAGS = -std=c++11
 
 OS := $(shell uname)
